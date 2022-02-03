@@ -14,6 +14,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "user_privilege")
 public class UserPrivilege {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
