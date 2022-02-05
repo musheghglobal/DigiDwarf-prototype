@@ -1,11 +1,13 @@
-package com.digidwarf.loginregistrationservice.entity;
+package com.digidwarf.loginregistrationservice.response;
 
+import com.digidwarf.loginregistrationservice.entity.Email;
+import com.digidwarf.loginregistrationservice.entity.Location;
+import com.digidwarf.loginregistrationservice.entity.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -13,26 +15,18 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Entity
-@Table(name = "userk")
-public class User {
+public class UserResponse {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private UUID uuid;
     private String name;
     private String surname;
-    @ManyToOne
     private Email email;
     private String password;
     private LocalDateTime createdDateTime;
     private boolean isMailVerified;
     private boolean isActive;
     private boolean isOnline;
-    @Enumerated(value = EnumType.STRING)
     private UserRole role;
-    @ManyToOne
     private Location loginLocation;
-    private UUID mailVerifyToken;
 }
