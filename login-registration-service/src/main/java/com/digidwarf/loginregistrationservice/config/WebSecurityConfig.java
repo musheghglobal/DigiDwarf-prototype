@@ -1,4 +1,4 @@
-package com.digidwarf.loginregistrationservice.cofig;
+package com.digidwarf.loginregistrationservice.config;
 
 import com.digidwarf.loginregistrationservice.security.CurrentUserDetailServiceImpl;
 import com.digidwarf.loginregistrationservice.security.JWTAuthenticationTokenFilter;

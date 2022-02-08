@@ -1,4 +1,4 @@
-package com.digidwarf.loginregistrationservice.cofig;
+package com.digidwarf.loginregistrationservice.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

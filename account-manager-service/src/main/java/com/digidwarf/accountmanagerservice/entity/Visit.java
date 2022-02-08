@@ -21,7 +21,6 @@ public class Visit {
     private long id;
     private LocalDateTime loginDateTime;
     private LocalDateTime logoutDateTime;
-    private Boolean isLoginSuccess;
     @ManyToOne
     private Location location;
     @ManyToOne

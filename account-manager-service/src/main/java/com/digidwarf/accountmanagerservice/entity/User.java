@@ -15,7 +15,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "user")
+@Table(name = "userk")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,7 +30,6 @@ public class User {
     private LocalDateTime createdDateTime;
     private boolean isMailVerified;
     private boolean isActive;
-    private boolean isOnline;
     @Enumerated(value = EnumType.STRING)
     private UserRole role;
     private String picUrl;
