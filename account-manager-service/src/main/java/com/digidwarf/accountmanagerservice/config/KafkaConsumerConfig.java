@@ -1,5 +1,6 @@
 package com.digidwarf.accountmanagerservice.config;
 
+import com.digidwarf.accountmanagerservice.request.UserRequest;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,15 +23,16 @@ public class KafkaConsumerConfig {
    private String OBJECT_VALUE;
 
    @Bean
-   public ConsumerFactory<String, Object> consumerFactory() {
+   public ConsumerFactory<String, UserRequest> consumerFactory() {
       Map<String, Object> props = new HashMap<>();
       props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, OBJECT_VALUE);
       props.put(ConsumerConfig.GROUP_ID_CONFIG, "groupId1");
-      return new DefaultKafkaConsumerFactory<>(props, new StringDeserializer(), new JsonDeserializer<>(Object.class));
+      props.put(JsonDeserializer.TRUSTED_PACKAGES, "com/digidwarf/accountmanagerservice/request/*");
+      return new DefaultKafkaConsumerFactory<>(props, new StringDeserializer(), new JsonDeserializer<>(UserRequest.class));
    }
    @Bean
-   public ConcurrentKafkaListenerContainerFactory<String, Object> kafkaListenerContainerFactory() {
-      ConcurrentKafkaListenerContainerFactory<String, Object>
+   public ConcurrentKafkaListenerContainerFactory<String, UserRequest> kafkaListenerContainerFactory() {
+      ConcurrentKafkaListenerContainerFactory<String, UserRequest>
       factory = new ConcurrentKafkaListenerContainerFactory<>();
       factory.setConsumerFactory(consumerFactory());
       return factory;

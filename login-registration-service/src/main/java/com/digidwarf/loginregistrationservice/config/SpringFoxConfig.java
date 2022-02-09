@@ -9,12 +9,11 @@ import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
-@RequiredArgsConstructor
 @Configuration
 public class SpringFoxConfig {
 
     @Value("${dwarf.base.package}")
-    private final String BASE_PACKAGE;
+    private String BASE_PACKAGE;
 
     @Bean
     public Docket api() {

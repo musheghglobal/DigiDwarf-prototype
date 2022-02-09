@@ -25,7 +25,7 @@ public class DwarfConnectionListener {
 //    }
 
     @KafkaListener(topics = "kafka", groupId = "groupId1")
-    public void listener(Object user) {
+    public void listener(UserRequest user) {
         System.out.println("****************************");
         System.out.println(user);
     }

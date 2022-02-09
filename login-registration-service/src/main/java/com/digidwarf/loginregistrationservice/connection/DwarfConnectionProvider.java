@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/msg")
+@RequestMapping("/test")
 public class DwarfConnectionProvider {
 
-    private final KafkaTemplate<String, Object> kafkaTemplate;
+    private final KafkaTemplate<String, UserRequest> kafkaTemplate;
 
     @PostMapping
     public void sendOrder() {
-        kafkaTemplate.send("kafka", "dgbhdgbhndf");
+        kafkaTemplate.send("kafka", new UserRequest());
     }
 
 //    public void sendMessage(String topicName, User message) {
