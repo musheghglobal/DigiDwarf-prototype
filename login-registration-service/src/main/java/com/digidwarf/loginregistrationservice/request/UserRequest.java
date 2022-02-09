@@ -21,12 +21,12 @@ public class UserRequest {
     private UUID uuid;
     private String name;
     private String surname;
-//    private Email email;
+    private Email email;
     private String password;
-//    private LocalDateTime createdDateTime;
+    private LocalDateTime createdDateTime;
     private boolean isMailVerified;
     private boolean isActive;
     private boolean isOnline;
-//    private UserRole role;
-//    private Location loginLocation;
+    private UserRole role;
+    private Location loginLocation;
 }

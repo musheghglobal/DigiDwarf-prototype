@@ -1,4 +1,4 @@
-package com.digidwarf.accountmanagerservice.util;
+package com.digidwarf.accountmanagerservice.connection;
 
 import com.digidwarf.accountmanagerservice.request.UserRequest;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 @Component
-public class Listener {
+public class DwarfConnectionListener {
 
 //    @KafkaListener(topics = "topicName", groupId = "group-id")
 //    public void listen(String message) {
@@ -23,7 +23,6 @@ public class Listener {
 //        System.out.println(
 //                "Received Message: " + message + "from partition: " + partition);
 //    }
-
 
     @KafkaListener(topics = "kafka", groupId = "groupId1")
     public void listener(Object user) {

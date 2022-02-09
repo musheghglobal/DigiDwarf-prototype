@@ -1,4 +1,4 @@
-package com.digidwarf.loginregistrationservice.endpoint;
+package com.digidwarf.loginregistrationservice.connection;
 
 
 import com.digidwarf.loginregistrationservice.request.UserRequest;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/msg")
-public class MsgController {
+public class DwarfConnectionProvider {
 
     private final KafkaTemplate<String, Object> kafkaTemplate;
 
@@ -20,4 +20,23 @@ public class MsgController {
     public void sendOrder() {
         kafkaTemplate.send("kafka", "dgbhdgbhndf");
     }
+
+//    public void sendMessage(String topicName, User message) {
+//
+//        kafkaTemplate.send(topicName, message);
+//
+//        future.addCallback(new ListenableFutureCallback<SendResult<String, Object>>() {
+//
+//            @Override
+//            public void onSuccess(SendResult<String, Object> result) {
+//                System.out.println("success");
+//            }
+//
+//            @Override
+//            public void onFailure(Throwable ex) {
+//                System.out.println("fail");
+//            }
+//        });
+//    }
+
 }

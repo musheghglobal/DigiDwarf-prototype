@@ -1,17 +1,32 @@
 package com.digidwarf.accountmanagerservice.request;
 
+import com.digidwarf.accountmanagerservice.entity.Email;
+import com.digidwarf.accountmanagerservice.entity.Location;
+import com.digidwarf.accountmanagerservice.entity.UserRole;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
+import java.util.UUID;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class UserRequest {
 
     private Long id;
-//    private UUID uuid;
+    private UUID uuid;
     private String name;
     private String surname;
-//    private Email email;
+    private Email email;
     private String password;
-//    private LocalDateTime createdDateTime;
+    private LocalDateTime createdDateTime;
     private boolean isMailVerified;
     private boolean isActive;
     private boolean isOnline;
-//    private UserRole role;
-//    private Location loginLocation;
+    private UserRole role;
+    private Location loginLocation;
 }

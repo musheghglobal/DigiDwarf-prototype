@@ -34,11 +34,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers().permitAll()
                 .antMatchers(HttpMethod.POST).permitAll();
-
         http.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
-
         http.headers().cacheControl();
-
     }
 
     @Override
@@ -47,10 +44,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordEncoder(passwordEncoder);
     }
 
-
     @Bean
     public JWTAuthenticationTokenFilter authenticationTokenFilterBean() throws Exception {
         return new JWTAuthenticationTokenFilter();
     }
-
 }
