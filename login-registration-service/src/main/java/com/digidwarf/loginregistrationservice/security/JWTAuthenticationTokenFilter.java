@@ -23,7 +23,10 @@ public class JWTAuthenticationTokenFilter extends OncePerRequestFilter {
     private CurrentUserDetailServiceImpl userDetailsService;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest httpServletRequest,
+                                    HttpServletResponse httpServletResponse,
+                                    FilterChain filterChain) throws ServletException, IOException {
+
         String requestHeader = httpServletRequest.getHeader("Authorization");
 
         String username = null;

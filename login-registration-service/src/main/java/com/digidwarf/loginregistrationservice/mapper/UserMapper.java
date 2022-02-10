@@ -7,6 +7,9 @@ import com.digidwarf.loginregistrationservice.request.UserRequest;
 import com.digidwarf.loginregistrationservice.response.UserResponse;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Service;
+
+@Service
 @RequiredArgsConstructor
 public class UserMapper implements BaseMapper<User, UserRequest, UserResponse> {
 

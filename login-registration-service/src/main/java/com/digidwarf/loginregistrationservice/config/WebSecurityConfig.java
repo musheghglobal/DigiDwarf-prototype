@@ -32,8 +32,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
                 .and()
                 .authorizeRequests()
-                .antMatchers().permitAll()
-                .antMatchers(HttpMethod.POST).permitAll();
+//                .antMatchers(HttpMethod.GET, "/users").authenticated()
+                .antMatchers("/lg-main/**").permitAll();
         http.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
         http.headers().cacheControl();
     }

@@ -6,6 +6,7 @@ import com.digidwarf.loginregistrationservice.exception.sub.EmailRepeatingExcept
 import com.digidwarf.loginregistrationservice.exception.sub.UserNotFoundException;
 import com.digidwarf.loginregistrationservice.mapper.UserMapper;
 import com.digidwarf.loginregistrationservice.repository.UserRepository;
+import com.digidwarf.loginregistrationservice.request.LoginRequest;
 import com.digidwarf.loginregistrationservice.request.UserRegistrationRequest;
 import com.digidwarf.loginregistrationservice.response.UserAuthResponse;
 import com.digidwarf.loginregistrationservice.response.UserResponse;
@@ -13,11 +14,13 @@ import com.digidwarf.loginregistrationservice.service.UserService;
 import com.digidwarf.loginregistrationservice.token.JwtTokenUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 import java.util.UUID;
 
 @RequiredArgsConstructor
+@Service
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
@@ -27,11 +30,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponse registration(UserRegistrationRequest request) {
-        if (userRepository.findByEmail(request.getEmail().getEmail()).isPresent()) {
+        if (userRepository.findByEmail(request.getEmail()).isPresent()) {
             throw new EmailRepeatingException();
         }
         User user = userMapper.toEntity(request);
         user.setPassword(passwordEncoder.encode(request.getPassword()));
+
         return userMapper.toResponse(userRepository.save(user));
     }
 
@@ -48,15 +52,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserAuthResponse auth(UserRegistrationRequest userAuthRequest) throws UserNotFoundException {
-        Optional<User> byEmail = userRepository.findByEmail(userAuthRequest.getEmail().getEmail());
+    public UserAuthResponse auth(LoginRequest loginRequest) throws UserNotFoundException {
+        Optional<User> byEmail = userRepository.findByEmail(loginRequest.getEmail());
         if (byEmail.isEmpty()) {
             throw new UserNotFoundException();
         }
         User user = byEmail.get();
-        if (passwordEncoder.matches(userAuthRequest.getPassword(), user.getPassword())) {
+        if (passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
             return new UserAuthResponse(
-                    jwtTokenUtil.generateToken(user.getEmail().getEmail()),
+                    jwtTokenUtil.generateToken(user.getEmail()),
                     userMapper.toResponse(user));
         }
         throw new UserNotFoundException();

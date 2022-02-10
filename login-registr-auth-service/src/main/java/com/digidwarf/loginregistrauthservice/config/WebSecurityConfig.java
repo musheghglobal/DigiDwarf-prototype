@@ -57,5 +57,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public JWTAuthenticationTokenFilter authenticationTokenFilterBean()  {
         return new JWTAuthenticationTokenFilter();
     }
-
 }

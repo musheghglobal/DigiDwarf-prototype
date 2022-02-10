@@ -64,12 +64,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
-        <dependency>
-            <groupId>email-normalisation</groupId>
-            <artifactId>email-normalisation</artifactId>
-            <version>1.0.3</version>
-            <scope>compile</scope>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>email-normalisation</groupId>-->
+<!--            <artifactId>email-normalisation</artifactId>-->
+<!--            <version>1.0.3</version>-->
+<!--            <scope>compile</scope>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>

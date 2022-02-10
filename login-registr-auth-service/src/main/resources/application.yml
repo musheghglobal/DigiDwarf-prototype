@@ -6,9 +6,11 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     show-sql: true
 jwt:
   secret: sasdsahxcuajhdcafhsgdjsfdsfskudf
   expiration: 600000
   header: Authorization
+server:
+  port: 8001

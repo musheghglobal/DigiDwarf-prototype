@@ -27,8 +27,7 @@ public class User {
     private UUID uuid; 
     private String name;
     private String surname;
-    @ManyToOne
-    private Email email;
+    private String email;
     private String password;
     private LocalDateTime createdDateTime;
     private boolean isMailVerified;
@@ -36,8 +35,6 @@ public class User {
     private boolean isOnline;
     @Enumerated(value = EnumType.STRING)
     private UserRole role;
-    @ManyToOne
-    private Location loginLocation;
     private UUID mailVerifyToken;
 
 }

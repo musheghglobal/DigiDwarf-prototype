@@ -1,5 +1,6 @@
 package com.digidwarf.loginregistrationservice.service;
 
+import com.digidwarf.loginregistrationservice.request.LoginRequest;
 import com.digidwarf.loginregistrationservice.request.UserRegistrationRequest;
 import com.digidwarf.loginregistrationservice.response.UserAuthResponse;
 import com.digidwarf.loginregistrationservice.response.UserResponse;
@@ -9,5 +10,5 @@ public interface UserService {
 
     boolean verifyUser(String email, String token);
 
-    UserAuthResponse auth(UserRegistrationRequest userAuthRequest);
+    UserAuthResponse auth(LoginRequest loginRequest);
 }
