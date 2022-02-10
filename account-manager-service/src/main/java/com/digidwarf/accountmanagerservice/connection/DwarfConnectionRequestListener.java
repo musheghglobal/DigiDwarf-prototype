@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 @Component
-public class DwarfConnectionListener {
+public class DwarfConnectionRequestListener {
 
 //    @KafkaListener(topics = "topicName", groupId = "group-id")
 //    public void listen(String message) {
