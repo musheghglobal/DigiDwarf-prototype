@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
         }
         User user = userMapper.toEntity(request);
         user.setPassword(passwordEncoder.encode(request.getPassword()));
-
+        user.setMailVerifyToken(UUID.randomUUID());
         return userMapper.toResponse(userRepository.save(user));
     }
 
@@ -53,11 +53,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserAuthResponse auth(LoginRequest loginRequest) throws UserNotFoundException {
-        Optional<User> byEmail = userRepository.findByEmail(loginRequest.getEmail());
-        if (byEmail.isEmpty()) {
-            throw new UserNotFoundException();
-        }
-        User user = byEmail.get();
+        User user = userRepository.findByEmail(loginRequest.getEmail()).orElseThrow(UserNotFoundException::new);
         if (passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
             return new UserAuthResponse(
                     jwtTokenUtil.generateToken(user.getEmail()),

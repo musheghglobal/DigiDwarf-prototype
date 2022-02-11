@@ -1,15 +1,11 @@
 package com.digidwarf.loginregistrationservice.entity;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.SerializerProvider;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.boot.jackson.JsonObjectSerializer;
 
 import javax.persistence.*;
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -36,5 +32,4 @@ public class User {
     @Enumerated(value = EnumType.STRING)
     private UserRole role;
     private UUID mailVerifyToken;
-
 }
