@@ -1,5 +1,6 @@
 package com.digidwarf.loginregistrationservice.service;
 
+import com.digidwarf.loginregistrationservice.response.AccountResponse;
 import com.digidwarf.loginregistrationservice.response.UserResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,4 +17,6 @@ public interface MailService {
     @RequestMapping(method = RequestMethod.GET, value = "/posts/{postId}", produces = "application/json")
     void getPostById(@PathVariable("postId") Long postId);
 
+    @RequestMapping(method = RequestMethod.POST, value = "/verificationMail", produces = "application/json")
+    boolean sendMailVerification(AccountResponse accountResponse);
 }

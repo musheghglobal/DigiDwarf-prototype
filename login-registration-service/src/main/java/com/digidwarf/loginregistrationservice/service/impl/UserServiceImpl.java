@@ -1,22 +1,22 @@
 package com.digidwarf.loginregistrationservice.service.impl;
 
 import com.digidwarf.loginregistrationservice.entity.User;
-import com.digidwarf.loginregistrationservice.exception.sub.EmailNotFoundException;
-import com.digidwarf.loginregistrationservice.exception.sub.EmailRepeatingException;
-import com.digidwarf.loginregistrationservice.exception.sub.UserNotFoundException;
+import com.digidwarf.loginregistrationservice.exception.sub.*;
 import com.digidwarf.loginregistrationservice.mapper.UserMapper;
 import com.digidwarf.loginregistrationservice.repository.UserRepository;
 import com.digidwarf.loginregistrationservice.request.LoginRequest;
 import com.digidwarf.loginregistrationservice.request.UserRegistrationRequest;
+import com.digidwarf.loginregistrationservice.response.AccountResponse;
 import com.digidwarf.loginregistrationservice.response.UserAuthResponse;
 import com.digidwarf.loginregistrationservice.response.UserResponse;
+import com.digidwarf.loginregistrationservice.service.MailService;
 import com.digidwarf.loginregistrationservice.service.UserService;
 import com.digidwarf.loginregistrationservice.token.JwtTokenUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -27,6 +27,10 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserMapper userMapper;
     private final JwtTokenUtil jwtTokenUtil;
+    private final MailService mailService;
+
+    @Value("${dwarf.mail.verify.url}")
+    private String MAIL_VERIFY_URL;
 
     @Override
     public UserResponse registration(UserRegistrationRequest request) {
@@ -35,17 +39,27 @@ public class UserServiceImpl implements UserService {
         }
         User user = userMapper.toEntity(request);
         user.setPassword(passwordEncoder.encode(request.getPassword()));
+        user.setMailVerified(false);
         user.setMailVerifyToken(UUID.randomUUID());
-        return userMapper.toResponse(userRepository.save(user));
+        User save = userRepository.save(user);
+        mailService.sendMailVerification(AccountResponse.builder()
+                .userResponse(userMapper.toResponse(user))
+                .mailVerificationLink(MAIL_VERIFY_URL + user.getMailVerifyToken())
+                .build());
+        return userMapper.toResponse(save);
     }
 
     @Override
-    public boolean verifyUser(String email, String token) {
-        User user = userRepository.findByEmail(email).orElseThrow(EmailNotFoundException::new);
+    public boolean verifyUserEmail(String token) {
+        User user = userRepository.findByMailVerifyToken(token).orElseThrow(MailVerifyTokenException::new);
         if (user.getMailVerifyToken().equals(UUID.fromString(token))) {
             user.setMailVerified(true);
             user.setMailVerifyToken(null);
-            userRepository.save(user);
+            User save = userRepository.save(user);
+            boolean accountCreated = mailService.createAccount(userMapper.toResponse(save));
+            if (!accountCreated){
+                throw new FailedAccountCreatedException();
+            }
             return true;
         }
         return false;
