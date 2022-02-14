@@ -14,7 +14,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "userk")
+@Table(name = "user_k")
 public class User {
 
     @Id
@@ -26,7 +26,7 @@ public class User {
     private String email;
     private String password;
     private LocalDateTime createdDateTime;
-    private boolean isMailVerified;
+    private boolean isMailVerified = false;
     private boolean isActive;
     private boolean isOnline;
     @Enumerated(value = EnumType.STRING)

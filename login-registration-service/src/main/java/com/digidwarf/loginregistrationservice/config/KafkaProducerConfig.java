@@ -1,7 +1,6 @@
 package com.digidwarf.loginregistrationservice.config;
 
 import com.digidwarf.loginregistrationservice.request.UserRequest;
-import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Value;

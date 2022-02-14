@@ -9,6 +9,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class AccountResponse {
+public class MailVerifyResponse {
 
+    private String name;
+    private String surname;
+    private String email;
+    private String mailVerificationLink;
+    private MailType mailType;
 }

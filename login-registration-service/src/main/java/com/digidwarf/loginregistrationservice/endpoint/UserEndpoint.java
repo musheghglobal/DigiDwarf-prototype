@@ -23,7 +23,6 @@ public class UserEndpoint {
 
     @PostMapping("/sign-in")
     public ResponseEntity login(@RequestBody LoginRequest request){
-//        mailService.getPosts(new UserResponse());
         return ResponseEntity.ok(userService.auth(request));
     }
 

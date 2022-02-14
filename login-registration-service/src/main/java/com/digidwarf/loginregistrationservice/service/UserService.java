@@ -6,6 +6,7 @@ import com.digidwarf.loginregistrationservice.response.UserAuthResponse;
 import com.digidwarf.loginregistrationservice.response.UserResponse;
 
 public interface UserService {
+
     UserResponse registration(UserRegistrationRequest request);
 
     boolean verifyUserEmail(String token);

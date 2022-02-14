@@ -6,9 +6,7 @@ import com.digidwarf.loginregistrationservice.mapper.UserMapper;
 import com.digidwarf.loginregistrationservice.repository.UserRepository;
 import com.digidwarf.loginregistrationservice.request.LoginRequest;
 import com.digidwarf.loginregistrationservice.request.UserRegistrationRequest;
-import com.digidwarf.loginregistrationservice.response.AccountResponse;
-import com.digidwarf.loginregistrationservice.response.UserAuthResponse;
-import com.digidwarf.loginregistrationservice.response.UserResponse;
+import com.digidwarf.loginregistrationservice.response.*;
 import com.digidwarf.loginregistrationservice.service.MailService;
 import com.digidwarf.loginregistrationservice.service.UserService;
 import com.digidwarf.loginregistrationservice.token.JwtTokenUtil;
@@ -39,12 +37,14 @@ public class UserServiceImpl implements UserService {
         }
         User user = userMapper.toEntity(request);
         user.setPassword(passwordEncoder.encode(request.getPassword()));
-        user.setMailVerified(false);
         user.setMailVerifyToken(UUID.randomUUID());
         User save = userRepository.save(user);
-        mailService.sendMailVerification(AccountResponse.builder()
-                .userResponse(userMapper.toResponse(user))
+        mailService.sendMailVerification(MailVerifyResponse.builder()
+                .name(save.getName())
+                .surname(save.getSurname())
+                .email(save.getEmail())
                 .mailVerificationLink(MAIL_VERIFY_URL + user.getMailVerifyToken())
+                .mailType(MailType.AUTH)
                 .build());
         return userMapper.toResponse(save);
     }
@@ -55,6 +55,7 @@ public class UserServiceImpl implements UserService {
         if (user.getMailVerifyToken().equals(UUID.fromString(token))) {
             user.setMailVerified(true);
             user.setMailVerifyToken(null);
+            user.setUuid(UUID.randomUUID());
             User save = userRepository.save(user);
             boolean accountCreated = mailService.createAccount(userMapper.toResponse(save));
             if (!accountCreated){

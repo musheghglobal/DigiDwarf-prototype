@@ -13,11 +13,6 @@ public class UserEndpoint {
 
     private final UserService userService;
 
-    @PostMapping
-    public void test(){
-        System.out.println("test endpoint");
-    }
-
     @PostMapping("/new_user")
     public ResponseEntity<Boolean> createNewAccount(@RequestBody UserRequest userRequest){
         return ResponseEntity.ok(userService.add(userRequest));
