@@ -9,10 +9,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MailResponseDto {
 
+    private String name;
+    private String surname;
     private String email;
-    private String userName;
-    private String userSurname;
+    private String mailVerificationLink;
     private String mailType;
-    private String link;
 
 }

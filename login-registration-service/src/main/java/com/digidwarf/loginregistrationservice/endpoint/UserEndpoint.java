@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 public class UserEndpoint {
 
     private final UserService userService;
-    private final MailService mailService;
 
     @PostMapping("/sign-up")
     public ResponseEntity registration(@RequestBody UserRegistrationRequest request){

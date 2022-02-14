@@ -57,9 +57,11 @@ public class MailSenderType {
     public void sendHtmlEmail(String subject, MailResponseDto mailResponseDto,
                               Locale locale) throws MessagingException {
         final Context ctx = new Context(locale);
-        ctx.setVariable("name", mailResponseDto.getUserName()+" "+mailResponseDto.getUserSurname());
-        if (mailResponseDto.getLink()!=null)
-        ctx.setVariable("url",mailResponseDto.getLink());
+        ctx.setVariable("name", mailResponseDto.getName() + " " + mailResponseDto.getSurname());
+        String mailVerificationLink = mailResponseDto.getMailVerificationLink();
+        if (mailVerificationLink != null) {
+            ctx.setVariable("url", mailVerificationLink);
+        }
         String mailType = mailResponseDto.getMailType();
         final String htmlContent = templateEngine.process("mail/" + mailType, ctx);
         // Prepare message using a Spring helper
@@ -71,7 +73,7 @@ public class MailSenderType {
         message.setText(htmlContent, true); // true = isHtml
         // Send mail
         this.emailSender.send(mimeMessage);
-        log.info("Email is successfully send to email {}",mailResponseDto.getEmail());
+        log.info("Email is successfully send to email {}", mailResponseDto.getEmail());
     }
 
 }

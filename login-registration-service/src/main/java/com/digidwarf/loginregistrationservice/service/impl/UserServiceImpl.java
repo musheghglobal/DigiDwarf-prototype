@@ -1,12 +1,18 @@
 package com.digidwarf.loginregistrationservice.service.impl;
 
 import com.digidwarf.loginregistrationservice.entity.User;
-import com.digidwarf.loginregistrationservice.exception.sub.*;
+import com.digidwarf.loginregistrationservice.exception.sub.EmailRepeatingException;
+import com.digidwarf.loginregistrationservice.exception.sub.FailedAccountCreatedException;
+import com.digidwarf.loginregistrationservice.exception.sub.MailVerifyTokenException;
+import com.digidwarf.loginregistrationservice.exception.sub.UserNotFoundException;
 import com.digidwarf.loginregistrationservice.mapper.UserMapper;
 import com.digidwarf.loginregistrationservice.repository.UserRepository;
 import com.digidwarf.loginregistrationservice.request.LoginRequest;
 import com.digidwarf.loginregistrationservice.request.UserRegistrationRequest;
-import com.digidwarf.loginregistrationservice.response.*;
+import com.digidwarf.loginregistrationservice.response.MailType;
+import com.digidwarf.loginregistrationservice.response.MailVerifyResponse;
+import com.digidwarf.loginregistrationservice.response.UserAuthResponse;
+import com.digidwarf.loginregistrationservice.response.UserResponse;
 import com.digidwarf.loginregistrationservice.service.MailService;
 import com.digidwarf.loginregistrationservice.service.UserService;
 import com.digidwarf.loginregistrationservice.token.JwtTokenUtil;
@@ -43,7 +49,7 @@ public class UserServiceImpl implements UserService {
                 .name(save.getName())
                 .surname(save.getSurname())
                 .email(save.getEmail())
-                .mailVerificationLink(MAIL_VERIFY_URL + user.getMailVerifyToken())
+                .mailVerificationLink(MAIL_VERIFY_URL + save.getMailVerifyToken())
                 .mailType(MailType.AUTH)
                 .build());
         return userMapper.toResponse(save);
@@ -51,7 +57,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean verifyUserEmail(String token) {
-        User user = userRepository.findByMailVerifyToken(token).orElseThrow(MailVerifyTokenException::new);
+        User user = userRepository.findByMailVerifyToken(UUID.fromString(token)).orElseThrow(MailVerifyTokenException::new);
         if (user.getMailVerifyToken().equals(UUID.fromString(token))) {
             user.setMailVerified(true);
             user.setMailVerifyToken(null);
