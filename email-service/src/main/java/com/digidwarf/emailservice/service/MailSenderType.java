@@ -58,6 +58,7 @@ public class MailSenderType {
                               Locale locale) throws MessagingException {
         final Context ctx = new Context(locale);
         ctx.setVariable("name", mailResponseDto.getUserName()+" "+mailResponseDto.getUserSurname());
+        if (mailResponseDto.getLink()!=null)
         ctx.setVariable("url",mailResponseDto.getLink());
         String mailType = mailResponseDto.getMailType();
         final String htmlContent = templateEngine.process("mail/" + mailType, ctx);

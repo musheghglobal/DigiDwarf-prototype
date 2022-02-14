@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import javax.mail.MessagingException;
 import java.util.Locale;
 
-@Component("welcome")
+@Component("WELCOME")
 @RequiredArgsConstructor
 public class WelcomeMail implements MailGenerator {
 

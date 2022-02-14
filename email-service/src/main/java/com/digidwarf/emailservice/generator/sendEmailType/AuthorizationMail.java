@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import javax.mail.MessagingException;
 import java.util.Locale;
 
-@Component("auth")
+@Component("AUTH")
 @RequiredArgsConstructor
 public class AuthorizationMail implements MailGenerator {
 
