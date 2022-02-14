@@ -22,7 +22,6 @@ public class UserResponse {
     private String name;
     private String surname;
     private String email;
-    private String password;
     private LocalDateTime createdDateTime;
     private boolean isMailVerified;
     private boolean isActive;
