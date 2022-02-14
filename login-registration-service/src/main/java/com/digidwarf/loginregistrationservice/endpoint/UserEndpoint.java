@@ -2,7 +2,6 @@ package com.digidwarf.loginregistrationservice.endpoint;
 
 import com.digidwarf.loginregistrationservice.request.LoginRequest;
 import com.digidwarf.loginregistrationservice.request.UserRegistrationRequest;
-import com.digidwarf.loginregistrationservice.service.MailService;
 import com.digidwarf.loginregistrationservice.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

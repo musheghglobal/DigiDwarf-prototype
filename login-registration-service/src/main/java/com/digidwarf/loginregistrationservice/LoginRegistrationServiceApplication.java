@@ -1,8 +1,5 @@
 package com.digidwarf.loginregistrationservice;
 
-import com.digidwarf.loginregistrationservice.response.MailVerifyResponse;
-import com.digidwarf.loginregistrationservice.response.UserResponse;
-import com.digidwarf.loginregistrationservice.service.MailService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;

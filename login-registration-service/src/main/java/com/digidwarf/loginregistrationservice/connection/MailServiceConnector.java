@@ -1,4 +1,4 @@
-package com.digidwarf.loginregistrationservice.service;
+package com.digidwarf.loginregistrationservice.connection;
 
 import com.digidwarf.loginregistrationservice.response.MailVerifyResponse;
 import com.digidwarf.loginregistrationservice.response.UserResponse;
@@ -8,10 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @FeignClient(value = "mailservice", url = "http://localhost:8083" )
-public interface MailService {
-
-    @RequestMapping(method = RequestMethod.POST, value = "/new_user", produces = "application/json")
-    boolean createAccount(@RequestBody UserResponse userResponse);
+public interface MailServiceConnector {
 
 //    @RequestMapping(method = RequestMethod.GET, value = "/posts/{postId}", produces = "application/json")
 //    void getPostById(@PathVariable("postId") Long postId);
