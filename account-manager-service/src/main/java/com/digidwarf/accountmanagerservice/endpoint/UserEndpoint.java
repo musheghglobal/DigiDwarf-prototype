@@ -13,7 +13,7 @@ public class UserEndpoint {
 
     private final UserService userService;
 
-    @PostMapping("/new")
+    @PostMapping("/")
     public ResponseEntity<Boolean> createNewAccount(@RequestBody UserRequest userRequest){
         return ResponseEntity.ok(userService.add(userRequest));
     }

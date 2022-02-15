@@ -22,7 +22,7 @@ public class UserResponse {
     private String name;
     private String surname;
     private String email;
-    private LocalDateTime createdDateTime;
+//    private LocalDateTime createdDateTime;
     private boolean isMailVerified;
     private boolean isActive;
     private boolean isOnline;

@@ -20,6 +20,8 @@ import com.digidwarf.loginregistrationservice.token.JwtTokenUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -63,7 +65,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean verifyUserEmail(String token) {
-        Optional<User> userOptional = userRepository.findByMailVerifyToken(UUID.fromString(token));
+        Optional<User> userOptional = userRepository.findUserByMailVerifyToken(UUID.fromString(token));
         if (userOptional.isEmpty()) {
             return false;
         }
@@ -73,8 +75,8 @@ public class UserServiceImpl implements UserService {
             user.setMailVerifyToken(null);
             user.setUuid(UUID.randomUUID());
             User save = userRepository.save(user);
-            boolean accountCreated = accountServiceConnector.createAccount(userMapper.toResponse(save));
-            if (!accountCreated) {
+            ResponseEntity<Boolean> accountCreated = accountServiceConnector.createAccount(userMapper.toResponse(save));
+            if (!accountCreated.getStatusCode().equals(HttpStatus.OK)) {
                 log.error("account dont created in account service");
                 throw new FailedAccountCreatedException();
             }

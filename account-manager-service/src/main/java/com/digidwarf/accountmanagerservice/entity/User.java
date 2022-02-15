@@ -23,8 +23,7 @@ public class User {
     private UUID uuid;
     private String name;
     private String surname;
-    @ManyToOne
-    private Email email;
+    private String email;
     @ManyToOne
     private Region region;
     private LocalDateTime createdDateTime;
